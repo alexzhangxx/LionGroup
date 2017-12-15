@@ -125,6 +125,15 @@ def get_my_join_event():
     return render_template('myevent.html',events=context)
 
 
+@application.route('/event/create', methods=['POST'])
+def event_create():
+    args = ["content", "circle_id", "image"]
+    trend = args2dict(request, args)
+    trend['author_id'] = session['user']['user_id']
+    #create_trend_l(trend)
+    return redirect('/trend/')
+
+
 if __name__ == '__main__':
     import click
 

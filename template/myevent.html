@@ -14,6 +14,30 @@
 <body>
 {% include 'navbar.html' %}
 <div class="container" , style="max-width:46rem">
+    <div class="card">
+        <div class="card-block">
+            <form action='/event/create/' method='post'>
+                <label>Create New Event:</label>
+                <textarea class="form-control" name="content" rows="3" required></textarea>
+                <label>Image</label>
+                <input type="url" name='image' class="form-control">
+                <label>Type</label>
+                <select class="form-control" name="type" id="exampleFormControlSelect1">
+                    <option value="study">study together</option>
+                    <option value="eat">eat together</option>
+                    <option value="home">go home together</option>
+                </select>
+                <div class="row">
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <button class="btn btn-lg btn-primary float-right btn-block w-75 p-1" type="submit">
+                            post
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
     <div class="header clearfix", style="margin:20px auto 0;text-align:center">
     <div class="row">
         <div class="col-6">
@@ -38,18 +62,18 @@
         <div class="card-block">
             <div class="row">
                 <div class="col-6">
-                    <h4><span style="color:darkblue">Nick name:</span>{{d['nick_name']}}</h4>
+                    <h5><span style="color:darkblue">Nick name:</span>{{d['nick_name']}}</h5>
                 </div>
                 <div class="col-6">
-                    <h4><span style="color:darkblue">Time:</span>{{d['time']}}</h4>
+                    <h5><span style="color:darkblue">Time:</span>{{d['time']}}</h5>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
-                    <h4><span style="color:darkblue">Type:</span>{{d['type']}}</h4>
+                    <h5><span style="color:darkblue">Type:</span>{{d['type']}}</h5>
                 </div>
                 <div class="col-6">
-                    <h4><span style="color:darkblue">Email:</span>{{d['email']}}</h4>
+                    <h5><span style="color:darkblue">Email:</span>{{d['email']}}</h5>
                 </div>
             </div>
             <p class="card-text">{{d['content']}}</p>
