@@ -1,6 +1,9 @@
 import os
 from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
+from logic import create_student_l, login, get_my_moment
+
+
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
 application = Flask(__name__, template_folder=tmpl_dir)
@@ -32,8 +35,11 @@ def register_user():
     args = ["nick_name", "avatar", "email", "password",
             "introduction"]
     user = args2dict(request, args)
-    # new_user = create_user_l(user)
-    # session['user'] = new_user
+    new_user = create_student_l(user)
+    new_user['_id'] = str(new_user['_id'])
+    print(new_user)
+    session['user'] = new_user
+
     return redirect('/user/')
 
 
@@ -48,12 +54,13 @@ def user_home_page():
 
 @application.route('/user/login/', methods=['POST'])
 def login_user():
-    user_id = request.form['user_id']
+    user_nick = request.form['nick_name']
     password = request.form['password']
-    # user = login(user_id, password)
-    user = {'user_id': 1, 'nick_name': 'jack',
-            'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
-            'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
+    user = login(user_nick, password)
+    user['_id'] = str(user['_id'])
+    #user = {'user_id': 1, 'nick_name': 'jack',
+    #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
+    #       'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
     if user is not None:
         session['user'] = user
         return redirect('/user/')
@@ -64,9 +71,9 @@ def login_user():
 
 @application.route('/discover/', methods=['GET'])
 def get_all_event():
-    user_id = session['user']['user_id']
-    # moments = get_my_moment(user_id)
-    # context = dict(moments=moments)
+    user_id = session['user']['id']
+    #moments = get_my_moment(user_id)
+    #context = dict(moments=moments)
     context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
                 'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
                 'content': 'I would like to see coco.'},
