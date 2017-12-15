@@ -52,8 +52,8 @@ def login_user():
     password = request.form['password']
     # user = login(user_id, password)
     user = {'user_id': 1, 'nick_name': 'jack',
-               'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
-               'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
+            'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
+            'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
     if user is not None:
         session['user'] = user
         return redirect('/user/')
@@ -63,34 +63,67 @@ def login_user():
 
 
 @application.route('/discover/', methods=['GET'])
-def get_all_moment():
+def get_all_event():
     user_id = session['user']['user_id']
     # moments = get_my_moment(user_id)
     # context = dict(moments=moments)
-    context = [{'nick_name': 'jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+                'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
+                'content': 'I would like to see coco.'},
+               {'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
+                'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
+                'content': 'Go home together?'},
+               {'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
+                'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
+                'content': 'Eat nearby!'}
+               ]
+    return render_template('discover.html', events=context)
+
+
+@application.route('/discover/study', methods=['GET'])
+def get_study_event():
+    context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
                 'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
                 'content': 'I would like to see coco.'}]
     return render_template('discover.html', events=context)
 
 
-'''
-@application.route('/trend/', methods=['GET'])
-def my_trend():
-    user_id = session['user']['user_id']
-    trends = get_my_trend_l(user_id)
-    my_circles = get_my_circle(user_id)
-    context = dict(trends=trends, circles=my_circles)
-    return render_template('trend.html', **context)
+@application.route('/discover/eat',methods=['GET'])
+def get_eat_event():
+    context = [{'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
+                'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
+                'content': 'Eat nearby!'}]
+    return render_template('discover.html', events=context)
 
 
-@application.route('/circle/', methods=['GET'])
-def get_circle_school():
+@application.route('/discover/home',methods=['GET'])
+def get_home_event():
+    context = [{'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
+                'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
+                'content': 'Go home together?'}]
+    return render_template('discover.html', events=context)
+
+
+@application.route('/myevent/start', methods=['GET'])
+def get_my_own_event():
     user_id = session['user']['user_id']
-    school_id = session['user']['school_id']
-    circles = get_all_circle_l(user_id, school_id)
-    context = dict(circles=circles)
-    return render_template('circle.html', **context)
-'''
+    # moments = get_my_moment(user_id)
+    # context = dict(moments=moments)
+    context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+                'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
+                'content': 'I would like to see coco.'}
+               ]
+    return render_template('myevent.html', events=context)
+
+
+@application.route('/myevent/join', methods=['GET'])
+def get_my_join_event():
+    user_id = session['user']['user_id']
+    # moments = get_my_moment(user_id)
+    # context = dict(moments=moments)
+    context = []
+    return render_template('myevent.html',events=context)
+
 
 if __name__ == '__main__':
     import click
