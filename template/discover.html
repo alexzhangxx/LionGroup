@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Event</title>
+    {% include 'header.html' %}
+    <style>
+        div.momment-card {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+{% include 'navbar.html' %}
+<div class="container", style="max-width:46rem">
+    {% for d in events:%}
+    <div class="card momment-card">
+        {% if d['image'] != None: %}
+        {% if d['image'] != "" %}
+        <img class="card-img-top" src={{d['image']}}>
+        {% endif %}
+        {% endif %}
+        <div class="card-block">
+            <div class="row">
+                <div class="col-6">
+                    <h4><span style="color:darkblue">Nick name:</span>{{d['nick_name']}}</h4>
+
+                </div>
+                <div class="col-6">
+                    <h4><span style="color:darkblue">Time:</span>{{d['time']}}</h4>
+                </div>
+            </div>
+            <p class="card-text">{{d['content']}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</body>
+
+
+</html>
