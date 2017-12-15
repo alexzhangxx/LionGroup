@@ -13,7 +13,7 @@
 
 <body>
 {% include 'navbar.html' %}
-<div class="container", style="max-width:46rem">
+<div class="container" , style="max-width:46rem">
     {% for d in events:%}
     <div class="card momment-card">
         {% if d['image'] != None: %}
@@ -25,10 +25,17 @@
             <div class="row">
                 <div class="col-6">
                     <h4><span style="color:darkblue">Nick name:</span>{{d['nick_name']}}</h4>
-
                 </div>
                 <div class="col-6">
                     <h4><span style="color:darkblue">Time:</span>{{d['time']}}</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <h4><span style="color:darkblue">Type:</span>{{d['type']}}</h4>
+                </div>
+                <div class="col-6">
+                    <h4><span style="color:darkblue">Email:</span>{{d['email']}}</h4>
                 </div>
             </div>
             <p class="card-text">{{d['content']}}</p>

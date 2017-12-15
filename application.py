@@ -27,17 +27,17 @@ def register_page():
     return render_template('register.html')
 
 
-@application.route('/student/create/', methods=['POST'])
-def register_student():
+@application.route('/user/create/', methods=['POST'])
+def register_user():
     args = ["nick_name", "avatar", "email", "password",
             "introduction"]
-    student = args2dict(request, args)
-    # new_student = create_student_l(student)
-    # session['user'] = new_student
-    return redirect('/student/')
+    user = args2dict(request, args)
+    # new_user = create_user_l(user)
+    # session['user'] = new_user
+    return redirect('/user/')
 
 
-@application.route('/student/')
+@application.route('/user/')
 def user_home_page():
     if session['user'] is not None:
         return render_template('user.html')
@@ -46,17 +46,17 @@ def user_home_page():
         return render_template('error.html')
 
 
-@application.route('/student/login/', methods=['POST'])
-def login_student():
-    student_id = request.form['student_id']
+@application.route('/user/login/', methods=['POST'])
+def login_user():
+    user_id = request.form['user_id']
     password = request.form['password']
-    # student = login(student_id, password)
-    student = {'user_id': 1, 'nick_name': 'jack',
+    # user = login(user_id, password)
+    user = {'user_id': 1, 'nick_name': 'jack',
                'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
                'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
-    if student is not None:
-        session['user'] = student
-        return redirect('/student/')
+    if user is not None:
+        session['user'] = user
+        return redirect('/user/')
 
     else:
         return render_template('error.html')
@@ -67,9 +67,11 @@ def get_all_moment():
     user_id = session['user']['user_id']
     # moments = get_my_moment(user_id)
     # context = dict(moments=moments)
-    context = [{'nick_name': 'jack', 'time': '2017-12-20',
-               'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg', 'content': 'I would like to see coco.'}]
+    context = [{'nick_name': 'jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+                'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
+                'content': 'I would like to see coco.'}]
     return render_template('discover.html', events=context)
+
 
 '''
 @application.route('/trend/', methods=['GET'])
