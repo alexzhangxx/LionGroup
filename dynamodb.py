@@ -1,6 +1,7 @@
 import pymongo
 import datetime
-client = pymongo.MongoClient('localhost', 27017)
+client = pymongo.MongoClient('ec2-54-172-172-28.compute-1.amazonaws.com', 27017)
+#client = pymongo.MongoClient('localhost', 27017)
 db1 = client.user
 db2 = client.event
 User= db1.user
