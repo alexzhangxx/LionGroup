@@ -1,3 +1,11 @@
+import boto3
+sns = boto3.client(
+    'sns',
+    aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
+    aws_secret_access_key='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',
+    # aws_session_token=SESSION_TOKEN,
+)
+
 import pymongo
 import datetime
 client = pymongo.MongoClient('ec2-54-172-172-28.compute-1.amazonaws.com', 27017)
@@ -25,6 +33,14 @@ def create_student(info):
         'followers':None
     }
     User.insert(dic)
+
+    #subscribe to our web application
+    response = sns.subscribe(
+        TopicArn='arn:aws:sns:us-east-1:055370712479:SignUpNoti',
+        Protocol='email',
+        Endpoint=dic['email']
+    )
+
     return ID
 
 def create_event_db(info, user_id):
