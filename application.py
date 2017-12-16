@@ -104,7 +104,7 @@ def get_all_event():
 
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
-    # event_id=request.form().....
+    #event_id=request.form().....
     return redirect('/discover/')
 
 
@@ -154,12 +154,12 @@ def get_my_own_event():
 @application.route('/myevent/join/', methods=['GET'])
 def get_my_join_event():
     user_id = session['user']['user_id']
-    # moments = get_my_moment(user_id)
-    # context = dict(moments=moments)
-    context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
-                'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
-                'content': 'I would like to see coco.'}
-               ]
+    moments = get_my_moment(user_id)
+    context = dict(moments=moments)
+    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    #             'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
+    #             'content': 'I would like to see coco.'}
+    #            ]
     return render_template('myevent.html', events=context)
 
 
