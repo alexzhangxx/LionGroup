@@ -1,3 +1,30 @@
+# send "one to one" notification to certain subscriber
+'''response = ses.send_email(
+    Source="maggiezhaomajoreee@gmail.com",
+    Destination={
+        'ToAddresses': ["rz2390@columbia.edu"]
+    },
+    Message={
+        'Subject': {
+            'Data': "test1",
+            'Charset': 'UTF-8'
+        },
+        'Body': {
+            'Text': {
+                'Data': "test1111",
+                'Charset': 'UTF-8'
+            }
+        }
+    }
+)'''
+
+# send notification to all subscribers
+'''response = sns.publish(
+    TopicArn='arn:aws:sns:us-east-1:055370712479:SignUpNoti',
+    Message='you have just created an event',
+    Subject='event notification',
+)'''
+
 import boto3
 sns = boto3.client(
     'sns',
