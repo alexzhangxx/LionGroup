@@ -5,6 +5,12 @@ sns = boto3.client(
     aws_secret_access_key='R4GWQSRpNwhBCJWBIEoSgeaKUPkOGOvg2Zuc0szw',
     # aws_session_token=SESSION_TOKEN,
 )
+ses = boto3.client(
+    'sns',
+    aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
+    aws_secret_access_key='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',
+    # aws_session_token=SESSION_TOKEN,
+)
 
 import pymongo
 import datetime
@@ -35,12 +41,19 @@ def create_student(info):
     User.insert(dic)
 
     #subscribe to our web application
-    response = sns.subscribe(
+    response1 = sns.subscribe(
         TopicArn='arn:aws:sns:us-east-1:055370712479:SignUpNoti',
         Protocol='email',
         Endpoint=dic['email']
     )
-    print("sns",response,"sns")
+    print("sns",response1,"sns")
+
+    #verify ses service
+    response2 = ses.verify_email_address(
+        EmailAddress=dic['email']
+    )
+    print("ses", response2, "ses")
+
     return ID
 
 def create_event_db(info, user_id):
