@@ -106,3 +106,4 @@ def find_my_moment(info):
 def get_all_my_event(user_id):
     context= Event.find({'starter': user_id})
     return context
+
