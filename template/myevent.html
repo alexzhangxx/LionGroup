@@ -37,19 +37,19 @@
         </div>
     </div>
     <div class="header clearfix", style="margin:20px auto 0;text-align:center">
-    <div class="row">
-        <div class="col-6">
-        <a href="/myevent/start" title="All types">
-            <h4><span>My event</span></h4>
-        </a>
-        </div>
-        <div class="col-6">
-        <a href="/myevent/join" title="stude">
-            <h4><span>Joined evet</span></h4>
-        </a>
+        <div class="row">
+            <div class="col-6">
+                <a href="/myevent/start" title="All types">
+                <h4><span>My event</span></h4>
+                 </a>
+            </div>
+            <div class="col-6">
+                <a href="/myevent/join" title="study">
+                <h4><span>Joined evet</span></h4>
+                </a>
+            </div>
         </div>
     </div>
-</div>
     {% for d in events:%}
     <div class="card momment-card">
         {% if d['image'] != None: %}
