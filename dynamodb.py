@@ -40,7 +40,7 @@ def create_student(info):
         Protocol='email',
         Endpoint=dic['email']
     )
-
+    print("sns",response,"sns")
     return ID
 
 def create_event_db(info, user_id):
