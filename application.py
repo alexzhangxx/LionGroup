@@ -2,9 +2,8 @@ import datetime
 import os
 from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
-from logic import create_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, get_my_moment, get_my_own
-
-
+from logic import create_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
+    get_my_moment, get_my_own
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
 application = Flask(__name__, template_folder=tmpl_dir)
@@ -59,7 +58,7 @@ def login_user():
     password = request.form['password']
     user = login(user_nick, password)
     user['_id'] = str(user['_id'])
-    #user = {'user_id': 1, 'nick_name': 'jack',
+    # user = {'user_id': 1, 'nick_name': 'jack',
     #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
     #       'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
     if user is not None:
@@ -90,7 +89,7 @@ def update_st():
 def get_all_event():
     user_id = session['user']['id']
     context = all_alive_event(user_id)
-    #context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
     #            'content': 'I would like to see coco.'},
     #           {'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
@@ -103,31 +102,37 @@ def get_all_event():
     return render_template('discover.html', events=context)
 
 
+@application.route('/discover/join/', methods=['POST'])
+def join_event():
+    # event_id=request.form().....
+    return redirect('/discover/')
+
+
 @application.route('/discover/study', methods=['GET'])
 def get_study_event():
     user_id = session['user']['id']
-    context= study_event(user_id)
-    #context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    context = study_event(user_id)
+    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
     #            'content': 'I would like to see coco.'}]
     return render_template('discover.html', events=context)
 
 
-@application.route('/discover/eat',methods=['GET'])
+@application.route('/discover/eat', methods=['GET'])
 def get_eat_event():
     user_id = session['user']['id']
     context = eat_event(user_id)
-    #context = [{'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
+    # context = [{'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
     #            'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
     #            'content': 'Eat nearby!'}]
     return render_template('discover.html', events=context)
 
 
-@application.route('/discover/home',methods=['GET'])
+@application.route('/discover/home', methods=['GET'])
 def get_home_event():
     user_id = session['user']['id']
     context = home_event(user_id)
-    #context = [{'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
+    # context = [{'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
     #            'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
     #            'content': 'Go home together?'}]
     return render_template('discover.html', events=context)
@@ -138,8 +143,8 @@ def get_my_own_event():
     user_id = session['user']['id']
     context = get_my_own(user_id)
 
-    #context = dict(moments=moments)
-    #context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    # context = dict(moments=moments)
+    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
     #            'content': 'I would like to see coco.'}
     #           ]
@@ -155,7 +160,7 @@ def get_my_join_event():
                 'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
                 'content': 'I would like to see coco.'}
                ]
-    return render_template('myevent.html',events=context)
+    return render_template('myevent.html', events=context)
 
 
 @application.route('/event/create/', methods=['POST'])
@@ -163,16 +168,16 @@ def event_create():
     args = ["content", "image", "type"]
     trend = args2dict(request, args)
     d = datetime.datetime.now()
-    user_id= session['user']['id']
-    dic, EID= create_event(trend, user_id)
-    #if session['user']['create_event'] is None:
+    user_id = session['user']['id']
+    dic, EID = create_event(trend, user_id)
+    # if session['user']['create_event'] is None:
     #    list=[]
     #    list.append(EID)
     #    session['user']['create_event']= list
-    #else:
+    # else:
     #    session['user']['create_event'].append(EID)
-    #create_trend_l(trend)
-    t=str(d.year)+"-"+str(d.month)+"-"+str(d.day)
+    # create_trend_l(trend)
+    t = str(d.year) + "-" + str(d.month) + "-" + str(d.day)
     dic2 = {
         'nick_name': session['user']['nick_name'],
         'time': t,
@@ -181,7 +186,7 @@ def event_create():
         'image': dic['image'],
         'content': dic['content']
     }
-    context=[]
+    context = []
     context.append(dic2)
     return render_template('myevent.html', events=context)
 
