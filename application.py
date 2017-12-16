@@ -108,7 +108,7 @@ def join_event():
     return redirect('/discover/')
 
 
-@application.route('/discover/study', methods=['GET'])
+@application.route('/discover/study/', methods=['GET'])
 def get_study_event():
     user_id = session['user']['id']
     context = study_event(user_id)
@@ -118,7 +118,7 @@ def get_study_event():
     return render_template('discover.html', events=context)
 
 
-@application.route('/discover/eat', methods=['GET'])
+@application.route('/discover/eat/', methods=['GET'])
 def get_eat_event():
     user_id = session['user']['id']
     context = eat_event(user_id)
@@ -128,7 +128,7 @@ def get_eat_event():
     return render_template('discover.html', events=context)
 
 
-@application.route('/discover/home', methods=['GET'])
+@application.route('/discover/home/', methods=['GET'])
 def get_home_event():
     user_id = session['user']['id']
     context = home_event(user_id)
@@ -138,7 +138,7 @@ def get_home_event():
     return render_template('discover.html', events=context)
 
 
-@application.route('/myevent/start', methods=['GET'])
+@application.route('/myevent/start/', methods=['GET'])
 def get_my_own_event():
     user_id = session['user']['id']
     context = get_my_own(user_id)
@@ -151,7 +151,7 @@ def get_my_own_event():
     return render_template('myevent.html', events=context)
 
 
-@application.route('/myevent/join', methods=['GET'])
+@application.route('/myevent/join/', methods=['GET'])
 def get_my_join_event():
     user_id = session['user']['user_id']
     # moments = get_my_moment(user_id)

@@ -17,22 +17,22 @@
     <div class="header clearfix" , style="margin:20px auto 0;text-align:center">
         <div class="row">
             <div class="col-3">
-                <a href="/discover" title="All types">
+                <a href="/discover/" title="All types">
                     <h4><span>All types</span></h4>
                 </a>
             </div>
             <div class="col-3">
-                <a href="/discover/study" title="stude">
+                <a href="/discover/study/" title="stude">
                     <h4><span>Study together</span></h4>
                 </a>
             </div>
             <div class="col-3">
-                <a href="/discover/eat" title="eat">
+                <a href="/discover/eat/" title="eat">
                     <h4><span>Eat together</span></h4>
                 </a>
             </div>
             <div class="col-3">
-                <a href="/discover/home" title="home">
+                <a href="/discover/home/" title="home">
                     <h4><span>Go home together</span></h4>
                 </a>
             </div>
@@ -65,15 +65,9 @@
             <p class="card-text">{{d['content']}}</p>
             <form action='/discover/join/' method='post'>
                 <div class="row">
-                    <div class="col-2" style="padding-left: 0px">
-                        <label class="btn btn-primary like-button" id="event-{{d['event_id']}}">
-                        </label>
-                        <div class="col-2">
-                            <button class="btn btn-lg btn-primary btn-block w-75 p-1" style="margin-top: 5px"
-                                    type="submit">
-                                join
-                            </button>
-                        </div>
+                    <div class="col-10"></div>
+                    <div class="col-2">
+                        <button class="btn btn-lg btn-primary float-right btn-block w-75 p-1" type="submit">join</button>
                     </div>
                 </div>
             </form>
