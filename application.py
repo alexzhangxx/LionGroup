@@ -70,6 +70,22 @@ def login_user():
         return render_template('error.html')
 
 
+@application.route('/user/update/', methods=['POST'])
+def update_st():
+    '''
+    args = ['user_id', "nick_name", "avatar", "since", "email", "password",
+            "introduction"]
+    student = args2dict(request, args)
+    if len(student['password']) <= 6:
+        return render_template('error.html')
+    update_student_l(student)
+    user_id = request.form['user_id']
+    password = request.form['password']
+    student = login(user_id, password)
+    session['user'] = student'''
+    return redirect('/user/')
+
+
 @application.route('/discover/', methods=['GET'])
 def get_all_event():
     user_id = session['user']['id']
