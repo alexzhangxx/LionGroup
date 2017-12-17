@@ -68,18 +68,31 @@
                 </div>
             </div>
             <p class="card-text">{{d['content']}}</p>
-            <form action='/discover/join/' method='post'>
-                <div class="row">
-                    <div class="col-10"></div>
-                    <div class="col-2", style="margin:2px 5px 5px 2px">
-                        <button class="btn btn-lg btn-primary float-right btn-block w-75 p-1" type="submit">join</button>
-                    </div>
+            <div class="row">
+                <div class="col-10"></div>
+                <div class="col-2" , style="margin:2px 5px 5px 2px">
+                    <button class="btn btn-lg btn-primary float-right btn-block w-75 p-1 join" id="join-{{d['event_id']}}">join</button>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
+<script>
+    $(".join").click(function () {
+        var event_id = $(this).attr('id').split("-")[1];
+        let jsonData = {"event_id": event_id};
+        $.ajax({
+            type: 'POST',
+            url: "/discover/join/",
+            dataType: "text",
+            data: jsonData,
+            success: (res) => {
+                window.location.reload();
+            }
+        });
+    });
+</script>
 </body>
 
 
