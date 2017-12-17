@@ -84,7 +84,7 @@ def update_st():
 def get_all_event():
     user_id = session['user']['id']
     context = all_alive_event(user_id)
-    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
+    # context = [{'event_id':1,'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
     #            'content': 'I would like to see coco.'},
     #           {'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
@@ -99,11 +99,8 @@ def get_all_event():
 
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
-    #event_id=request.form.to_dict()
+    event_id=request.form['event_id']
     #print(event_id)
-
-
-
 
     return redirect('/discover/')
 
