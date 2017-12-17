@@ -21,9 +21,13 @@ def update_student_l(student):
 
 def all_alive_event(user_id):
     context= get_event_from_db()
-    user = find_student(user_id)
-    list = []
+    content=[]
     for c in context:
+        if(c['starter']!= user_id):
+            content.append(c)
+    list = []
+    for c in content:
+        user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
         '''dic = {
@@ -48,9 +52,13 @@ def all_alive_event(user_id):
 
 def study_event(user_id):
     context= all_study_event()
-    user = find_student(user_id)
-    list = []
+    content=[]
     for c in context:
+        if(c['starter']!= user_id):
+            content.append(c)
+    list = []
+    for c in content:
+        user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
         '''dic = {
@@ -76,9 +84,13 @@ def study_event(user_id):
 
 def eat_event(user_id):
     context= all_eat_event()
-    user = find_student(user_id)
-    list = []
+    content=[]
     for c in context:
+        if(c['starter']!= user_id):
+            content.append(c)
+    list = []
+    for c in content:
+        user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
         '''dic = {
@@ -88,7 +100,7 @@ def eat_event(user_id):
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
-        }'''
+        '}'''
         dic2 = {
             'nick_name': user['nick_name'],
             'starttime': t,
@@ -103,9 +115,13 @@ def eat_event(user_id):
 
 def home_event(user_id):
     context= all_home_event()
-    user = find_student(user_id)
-    list = []
+    content=[]
     for c in context:
+        if(c['starter']!= user_id):
+            content.append(c)
+    list = []
+    for c in content:
+        user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
         '''dic = {
