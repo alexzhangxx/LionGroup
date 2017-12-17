@@ -1,8 +1,8 @@
 import datetime
-from dynamodb import create_student, update_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event
+from dynamodb import create_student, update_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event, add_join_event_db, get_join_event_db
 
-def login(user_nick, password):
-    user = find_name_student(user_nick)
+def login(user_id, password):
+    user = find_student(int(user_id))
     if user is not None and user['password'] == password:
         return user
     else:
@@ -27,7 +27,6 @@ def all_alive_event(user_id):
             content.append(c)
     list = []
     for c in content:
-        print(c)
         user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
@@ -40,6 +39,7 @@ def all_alive_event(user_id):
             'content': c['content']
         }'''
         dic2 = {
+            'event_id': c['event_id'],
             'nick_name': user['nick_name'],
             'starttime': t,
             'endtime':t2,
@@ -71,6 +71,7 @@ def study_event(user_id):
             'content': c['content']
         }'''
         dic2 = {
+            'event_id': c['event_id'],
             'nick_name': user['nick_name'],
             'starttime': t,
             'endtime':t2,
@@ -103,6 +104,7 @@ def eat_event(user_id):
             'content': c['content']
         }'''
         dic2 = {
+            'event_id': c['event_id'],
             'nick_name': user['nick_name'],
             'starttime': t,
             'endtime':t2,
@@ -134,6 +136,7 @@ def home_event(user_id):
             'content': c['content']
         }'''
         dic2 = {
+            'event_id': c['event_id'],
             'nick_name': user['nick_name'],
             'starttime': t,
             'endtime':t2,
@@ -149,8 +152,24 @@ def create_event(trend, user_id):
     return create_event_db(trend, user_id)
 
 def get_my_moment(user_id):
-    info= find_student(user_id)
-    return find_my_moment(info)
+    user= find_student(user_id)
+    context= get_join_event_db(user_id)
+    list = []
+    for c in context:
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        user2 = find_student(c['starter'])
+        dic2 = {
+            'nick_name': c['starter'],
+            'starttime': t,
+            'endtime': t2,
+            'type': c['type'],
+            'email': user2['email'],
+            'image': c['image'],
+            'content': c['content']
+        }
+        list.append(dic2)
+    return list
 
 def get_my_own(user_id):
     #context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
@@ -162,6 +181,7 @@ def get_my_own(user_id):
     list=[]
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -173,7 +193,7 @@ def get_my_own(user_id):
         dic2 = {
             'nick_name': user['nick_name'],
             'starttime': t,
-            'endtime': t,
+            'endtime': t2,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
@@ -181,6 +201,9 @@ def get_my_own(user_id):
         }
         list.append(dic2)
     return list
+
+def add_join_event(user_id, event_id):
+    add_join_event_db(user_id, event_id)
 
 
 

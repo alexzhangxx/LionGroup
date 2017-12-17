@@ -3,7 +3,7 @@ import os
 from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
 from logic import create_student_l, update_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
-    get_my_moment, get_my_own
+    get_my_moment, get_my_own, add_join_event
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
 application = Flask(__name__, template_folder=tmpl_dir)
@@ -53,9 +53,9 @@ def user_home_page():
 
 @application.route('/user/login/', methods=['POST'])
 def login_user():
-    user_nick = request.form['nick_name']
+    user_id = request.form['user_id']
     password = request.form['password']
-    user = login(user_nick, password)
+    user = login(user_id, password)
     user['_id'] = str(user['_id'])
     # user = {'user_id': 1, 'nick_name': 'jack',
     #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
@@ -99,8 +99,8 @@ def get_all_event():
 
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
-    event_id=request.form['event_id']
-    #print(event_id)
+    event_id=request.form.to_dict('event_id')
+    add_join_event(session['user']['user_id'], event_id)
 
     return redirect('/discover/')
 
@@ -151,8 +151,7 @@ def get_my_own_event():
 @application.route('/myevent/join/', methods=['GET'])
 def get_my_join_event():
     user_id = session['user']['user_id']
-    moments = get_my_moment(user_id)
-    context = dict(moments=moments)
+    context = get_my_moment(user_id)
     # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #             'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
     #             'content': 'I would like to see coco.'}

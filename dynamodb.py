@@ -191,3 +191,29 @@ def get_all_my_event(user_id):
     context= Event.find({'starter': user_id})
     return context
 
+def add_join_event_db(user_id, event_id):
+    user = User.find_one({"user_id": user_id})
+    if user['join_event'] is None:
+        list=[]
+        list.append(event_id['event_id'])
+    else:
+        list=user['join_event']
+        list.append(event_id['event_id'])
+    User.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                'join_event': list
+            }
+        }
+    )
+
+def get_join_event_db(user_id):
+    user = User.find_one({"user_id": user_id})
+    list= user['join_event']
+    context=[]
+    for j in list:
+        e=Event.find_one({"event_id":int(j)})
+        context.append(e)
+    return context
+
