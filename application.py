@@ -97,6 +97,12 @@ def get_all_event():
     return render_template('discover.html', events=context)
 
 
+@application.route('/discover/search/', methods=['POST'])
+def join_event():
+    key_word = request.form['key_word']
+    #return render_template('discover.html', events=context)
+
+
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
     event_id=request.form.to_dict('event_id')
