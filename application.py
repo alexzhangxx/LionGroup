@@ -82,7 +82,7 @@ def update_st():
 
 @application.route('/discover/', methods=['GET'])
 def get_all_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     context = all_alive_event(user_id)
     # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
@@ -110,7 +110,7 @@ def join_event():
 
 @application.route('/discover/study/', methods=['GET'])
 def get_study_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     context = study_event(user_id)
     # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
     #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
@@ -120,7 +120,7 @@ def get_study_event():
 
 @application.route('/discover/eat/', methods=['GET'])
 def get_eat_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     context = eat_event(user_id)
     # context = [{'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
     #            'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
@@ -130,7 +130,7 @@ def get_eat_event():
 
 @application.route('/discover/home/', methods=['GET'])
 def get_home_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     context = home_event(user_id)
     # context = [{'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
     #            'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
@@ -140,7 +140,7 @@ def get_home_event():
 
 @application.route('/myevent/start/', methods=['GET'])
 def get_my_own_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     context = get_my_own(user_id)
 
     # context = dict(moments=moments)
@@ -153,7 +153,7 @@ def get_my_own_event():
 
 @application.route('/myevent/join/', methods=['GET'])
 def get_my_join_event():
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     moments = get_my_moment(user_id)
     context = dict(moments=moments)
     # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
@@ -168,7 +168,7 @@ def event_create():
     args = ["content", "image", "startmonth","startday","starthour","startyear","endmonth","endday","endhour","endyear","type", ]
     trend = args2dict(request, args)
     d = datetime.datetime.now()
-    user_id = session['user']['id']
+    user_id = session['user']['user_id']
     dic, EID = create_event(trend, user_id)
     # if session['user']['create_event'] is None:
     #    list=[]

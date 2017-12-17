@@ -10,14 +10,14 @@ def login(user_nick, password):
 
 def create_student_l(student):
     student['since'] = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    id= create_student(student)
-    return find_student(id)
+    user_id= create_student(student)
+    return find_student(user_id)
 
 def update_student_l(student):
     #student['since'] = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     m=find_name_student(student['nick_name'])
-    id= update_student(m,student)
-    return find_student(id)
+    user_id= update_student(m,student)
+    return find_student(user_id)
 
 def all_alive_event(user_id):
     context= get_event_from_db()
@@ -27,6 +27,7 @@ def all_alive_event(user_id):
             content.append(c)
     list = []
     for c in content:
+        print(c)
         user = find_student(c['starter'])
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
@@ -100,7 +101,7 @@ def eat_event(user_id):
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
-        '}'''
+        }'''
         dic2 = {
             'nick_name': user['nick_name'],
             'starttime': t,

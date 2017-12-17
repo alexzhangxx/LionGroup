@@ -43,10 +43,10 @@ import pymongo
 import datetime
 client = pymongo.MongoClient('ec2-54-172-172-28.compute-1.amazonaws.com', 27017)
 #client = pymongo.MongoClient('localhost', 27017)
-db1 = client.user
-db2 = client.event
-User= db1.user
-Event= db2.event
+db3 = client.user2
+db4 = client.event2
+User= db3.user2
+Event= db4.event2
 ID= 0
 EID= 0
 ID2=0
@@ -59,7 +59,7 @@ def create_student(info):
     #ID = ID + 1
     ID2=User.count()+1
     dic = {
-        'id': ID2,
+        'user_id': ID2,
         'nick_name': info['nick_name'],
         'avatar': info['avatar'],
         'email': info['email'],
@@ -88,7 +88,7 @@ def create_student(info):
 
 def update_student(info,student):
     User.update_one(
-        {"id": info['id']},
+        {"user_id": info['user_id']},
         {
         "$set": {
             'nick_name': student['nick_name'],
@@ -103,7 +103,7 @@ def update_student(info,student):
         }
         }
     )
-    return info['id']
+    return info['user_id']
 
 def create_event_db(info, user_id):
     #global EID
@@ -112,7 +112,7 @@ def create_event_db(info, user_id):
     EID2 = Event.count()+1
     d= datetime.datetime.now()
     dic = {
-        'id': EID2,
+        'event_id': EID2,
         #'event_id':info['event_id'],
         'image': info['image'],
         'starter': user_id,
@@ -136,8 +136,8 @@ def create_event_db(info, user_id):
     return dic, EID2
 
 
-def find_student(id):
-    info= User.find_one({"id": id})
+def find_student(user_id):
+    info= User.find_one({"user_id": user_id})
     return info
 
 def find_name_student(name):
