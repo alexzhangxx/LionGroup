@@ -99,7 +99,8 @@ def get_all_event():
 
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
-    #event_id=request.form().....
+    #event_id=request.form.to_dict()
+    #print(event_id)
 
 
 
