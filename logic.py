@@ -100,7 +100,7 @@ def eat_event(user_id):
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
-        }'''
+        '}'''
         dic2 = {
             'nick_name': user['nick_name'],
             'starttime': t,
