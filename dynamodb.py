@@ -33,7 +33,7 @@ sns = boto3.client(
     # aws_session_token=SESSION_TOKEN,
 )
 ses = boto3.client(
-    'sns',
+    'ses',
     aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
     aws_secret_access_key='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',
     # aws_session_token=SESSION_TOKEN,
@@ -49,12 +49,17 @@ User= db1.user
 Event= db2.event
 ID= 0
 EID= 0
+ID2=0
+EID2=0
+
 
 def create_student(info):
-    global ID
-    ID = ID + 1
+    #global ID
+    global ID2
+    #ID = ID + 1
+    ID2=User.count()+1
     dic = {
-        'id': ID,
+        'id': ID2,
         'nick_name': info['nick_name'],
         'avatar': info['avatar'],
         'email': info['email'],
@@ -73,43 +78,62 @@ def create_student(info):
         Protocol='email',
         Endpoint=dic['email']
     )
-    print("sns",response1,"sns")
 
     #verify ses service
     response2 = ses.verify_email_address(
         EmailAddress=dic['email']
     )
-    print("ses", response2, "ses")
 
-    return ID
+    return ID2
+
+def update_student(info,student):
+    User.update_one(
+        {"id": info['id']},
+        {
+        "$set": {
+            'nick_name': student['nick_name'],
+            'avatar': student['avatar'],
+            'email': student['email'],
+            'password': student['password'],
+            'followings': info['followings'],
+            'introduction': student['introduction'],
+            'create_event': info['create_event'],
+            'join_event': info['join_event'],
+            'followers': info['followers']
+        }
+        }
+    )
+    return info['id']
 
 def create_event_db(info, user_id):
-    global EID
-    EID = EID + 1
+    #global EID
+    global EID2
+    #EID = EID + 1
+    EID2 = Event.count()+1
     d= datetime.datetime.now()
     dic = {
-        'id': EID,
+        'id': EID2,
         #'event_id':info['event_id'],
         'image': info['image'],
         'starter': user_id,
         'type':info['type'],
         'content':info['content'],
         'person_limit':30,
-        'start_year': 2017,
-        'start_month': 7,
-        'start_day': 31,
-        'start_hour': 11,
-        'end_year': 2018,
-        'end_month': 12,
-        'end_day': 31,
-        'end_hour': 12,
+        'start_year': info['startyear'],
+        'start_month': info['startmonth'],
+        'start_day': info['startday'],
+        'start_hour': info['startday'],
+        'end_year': info['endyear'],
+        'end_month': info['endmonth'],
+        'end_day': info['endday'],
+        'end_hour': info['endhour'],
         'time_limit_flag':False,
         'person_limit_flag':False,
         'follower': None,
         'joined_flag':False
     }
     Event.insert(dic)
-    return dic, EID
+    return dic, EID2
 
 
 def find_student(id):
@@ -123,8 +147,8 @@ def find_name_student(name):
 def get_event_from_db():
     d = datetime.datetime.now()
     for c in Event.find():
-        if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-            print(c)
+        #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
             c['time_limit_flag'] = True
     content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
     return content
@@ -132,8 +156,9 @@ def get_event_from_db():
 def all_study_event():
     d = datetime.datetime.now()
     for c in Event.find():
-        if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-            print(c)
+        #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
+                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
             c['time_limit_flag'] = True
     context= Event.find({"type": 'study', "person_limit_flag": False, 'time_limit_flag': False})
     return context
@@ -141,8 +166,9 @@ def all_study_event():
 def all_eat_event():
     d = datetime.datetime.now()
     for c in Event.find():
-        if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-            print(c)
+        #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
+                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
             c['time_limit_flag'] = True
     context = Event.find({"type": 'eat', "person_limit_flag": False, 'time_limit_flag': False})
     return context
@@ -150,8 +176,9 @@ def all_eat_event():
 def all_home_event():
     d = datetime.datetime.now()
     for c in Event.find():
-        if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-            print(c)
+        #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
+                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
             c['time_limit_flag'] = True
     context = Event.find({"type": 'home', "person_limit_flag": False, 'time_limit_flag': False})
     return context

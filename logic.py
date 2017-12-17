@@ -1,5 +1,5 @@
 import datetime
-from dynamodb import create_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event
+from dynamodb import create_student, update_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event
 
 def login(user_nick, password):
     user = find_name_student(user_nick)
@@ -13,21 +13,37 @@ def create_student_l(student):
     id= create_student(student)
     return find_student(id)
 
+def update_student_l(student):
+    #student['since'] = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    m=find_name_student(student['nick_name'])
+    id= update_student(m,student)
+    return find_student(id)
+
 def all_alive_event(user_id):
     context= get_event_from_db()
     user = find_student(user_id)
     list = []
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        dic = {
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
+        }'''
+        dic2 = {
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime':t2,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
         }
-        list.append(dic)
+        list.append(dic2)
     return list
 
 def study_event(user_id):
@@ -36,15 +52,25 @@ def study_event(user_id):
     list = []
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        dic = {
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
+        }'''
+        dic2 = {
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime':t2,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
         }
-        list.append(dic)
+        list.append(dic2)
     return list
 
 
@@ -54,15 +80,25 @@ def eat_event(user_id):
     list = []
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        dic = {
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
+        }'''
+        dic2 = {
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime':t2,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
         }
-        list.append(dic)
+        list.append(dic2)
     return list
 
 def home_event(user_id):
@@ -71,15 +107,25 @@ def home_event(user_id):
     list = []
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        dic = {
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
+        }'''
+        dic2 = {
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime':t2,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
         }
-        list.append(dic)
+        list.append(dic2)
     return list
 
 def create_event(trend, user_id):
@@ -99,15 +145,24 @@ def get_my_own(user_id):
     list=[]
     for c in context:
         t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        dic = {
+        '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
             'type': c['type'],
             'email': user['email'],
             'image': c['image'],
             'content': c['content']
+        }'''
+        dic2 = {
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime': t,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
         }
-        list.append(dic)
+        list.append(dic2)
     return list
 
 

@@ -2,7 +2,7 @@ import datetime
 import os
 from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
-from logic import create_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
+from logic import create_student_l, update_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
     get_my_moment, get_my_own
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
@@ -37,7 +37,6 @@ def register_user():
     user = args2dict(request, args)
     new_user = create_student_l(user)
     new_user['_id'] = str(new_user['_id'])
-    print(new_user)
     session['user'] = new_user
 
     return redirect('/user/')
@@ -71,17 +70,13 @@ def login_user():
 
 @application.route('/user/update/', methods=['POST'])
 def update_st():
-    '''
-    args = ['user_id', "nick_name", "avatar", "since", "email", "password",
+    args = ["nick_name", "avatar", "email", "password",
             "introduction"]
-    student = args2dict(request, args)
-    if len(student['password']) <= 6:
-        return render_template('error.html')
-    update_student_l(student)
-    user_id = request.form['user_id']
-    password = request.form['password']
-    student = login(user_id, password)
-    session['user'] = student'''
+    user = args2dict(request, args)
+    update_user = update_student_l(user)
+    update_user['_id'] = str(update_user['_id'])
+    session['user'] = update_user
+
     return redirect('/user/')
 
 
@@ -105,6 +100,10 @@ def get_all_event():
 @application.route('/discover/join/', methods=['POST'])
 def join_event():
     #event_id=request.form().....
+
+
+
+
     return redirect('/discover/')
 
 
@@ -153,7 +152,7 @@ def get_my_own_event():
 
 @application.route('/myevent/join/', methods=['GET'])
 def get_my_join_event():
-    user_id = session['user']['user_id']
+    user_id = session['user']['id']
     moments = get_my_moment(user_id)
     context = dict(moments=moments)
     # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
@@ -165,7 +164,7 @@ def get_my_join_event():
 
 @application.route('/event/create/', methods=['POST'])
 def event_create():
-    args = ["content", "image", "type"]
+    args = ["content", "image", "startmonth","startday","starthour","startyear","endmonth","endday","endhour","endyear","type", ]
     trend = args2dict(request, args)
     d = datetime.datetime.now()
     user_id = session['user']['id']
@@ -177,17 +176,36 @@ def event_create():
     # else:
     #    session['user']['create_event'].append(EID)
     # create_trend_l(trend)
-    t = str(d.year) + "-" + str(d.month) + "-" + str(d.day)
-    dic2 = {
+
+    #t = str(d.year) + "-" + str(d.month) + "-" + str(d.day)
+
+    t1 = str(trend['startyear']) + "-" + str(trend['startmonth']) + "-" + str(trend['startday'])
+
+    #will be added later
+    t2 = str(trend['endyear']) + "-" + str(trend['endmonth']) + "-" + str(trend['endday'])
+
+    '''dic2 = {
         'nick_name': session['user']['nick_name'],
-        'time': t,
+        'time': t1,
+        'type': dic['type'],
+        'email': session['user']['email'],
+        'image': dic['image'],
+        'content': dic['content']
+    }'''
+
+    #will be added later
+    dic3 = {
+        'nick_name': session['user']['nick_name'],
+        'starttime': t1,
+        'endtime':t2,
         'type': dic['type'],
         'email': session['user']['email'],
         'image': dic['image'],
         'content': dic['content']
     }
+
     context = []
-    context.append(dic2)
+    context.append(dic3)
     return render_template('myevent.html', events=context)
 
 
