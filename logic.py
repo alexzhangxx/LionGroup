@@ -13,9 +13,9 @@ def create_student_l(student):
     user_id= create_student(student)
     return find_student(user_id)
 
-def update_student_l(student):
+def update_student_l(user_id, student):
     #student['since'] = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    m=find_name_student(student['nick_name'])
+    m=find_student(user_id)
     user_id= update_student(m,student)
     return find_student(user_id)
 
