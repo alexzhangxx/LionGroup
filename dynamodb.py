@@ -227,7 +227,14 @@ def get_event_from_db():
     for c in Event.find():
         #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
-            c['time_limit_flag'] = True
+            Event.update_one(
+                {"event_id": c['event_id']},
+                {
+                    "$set": {
+                        'time_limit_flag': True
+                    }
+                }
+            )
     content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
     return content
 
@@ -237,7 +244,14 @@ def get_event_from_db_search(event_id):
     for c in Event.find():
         #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
-            c['time_limit_flag'] = True
+            Event.update_one(
+                {"event_id": c['event_id']},
+                {
+                    "$set": {
+                        'time_limit_flag': True
+                    }
+                }
+            )
     content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
 
     for c in content:
@@ -253,7 +267,14 @@ def all_study_event():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
                 c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
-            c['time_limit_flag'] = True
+            Event.update_one(
+                {"event_id": c['event_id']},
+                {
+                    "$set": {
+                        'time_limit_flag': True
+                    }
+                }
+            )
     context= Event.find({"type": 'study', "person_limit_flag": False, 'time_limit_flag': False})
     return context
 
@@ -263,7 +284,14 @@ def all_eat_event():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
                 c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
-            c['time_limit_flag'] = True
+            Event.update_one(
+                {"event_id": c['event_id']},
+                {
+                    "$set": {
+                        'time_limit_flag': True
+                    }
+                }
+            )
     context = Event.find({"type": 'eat', "person_limit_flag": False, 'time_limit_flag': False})
     return context
 
@@ -273,7 +301,14 @@ def all_home_event():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
                 c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
-            c['time_limit_flag'] = True
+            Event.update_one(
+                {"event_id": c['event_id']},
+                {
+                    "$set": {
+                        'time_limit_flag': True
+                    }
+                }
+            )
     context = Event.find({"type": 'home', "person_limit_flag": False, 'time_limit_flag': False})
     return context
 

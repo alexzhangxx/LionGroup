@@ -28,8 +28,8 @@ def all_searched_event(user_id,event_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-" + str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -60,8 +60,8 @@ def all_alive_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-" + str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day']+ "-" + str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -92,8 +92,8 @@ def study_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-"+ str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day']+ "-"+ str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -125,8 +125,8 @@ def eat_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -157,8 +157,8 @@ def home_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
@@ -188,8 +188,8 @@ def get_my_moment(user_id):
     context= get_join_event_db(user_id)
     list = []
     for c in context:
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         user2 = find_student(c['starter'])
         dic2 = {
             'nick_name': c['starter'],
@@ -212,8 +212,8 @@ def get_my_own(user_id):
     user= find_student(user_id)
     list=[]
     for c in context:
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
