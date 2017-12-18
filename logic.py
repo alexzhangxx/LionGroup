@@ -192,7 +192,7 @@ def get_my_moment(user_id):
         t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
         user2 = find_student(c['starter'])
         dic2 = {
-            'nick_name': c['starter'],
+            'nick_name': user2['nick_name'],
             'starttime': t,
             'endtime': t2,
             'type': c['type'],
