@@ -28,16 +28,18 @@ def all_searched_event(user_id,event_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-" + str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
-        '''dic = {
-            'nick_name': user['nick_name'],
-            'time': t,
-            'type': c['type'],
-            'email': user['email'],
-            'image': c['image'],
-            'content': c['content']
-        }'''
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         dic2 = {
             'event_id': c['event_id'],
             'nick_name': user['nick_name'],
@@ -60,16 +62,18 @@ def all_alive_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-" + str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day']+ "-" + str(c['end_hour']))
-        '''dic = {
-            'nick_name': user['nick_name'],
-            'time': t,
-            'type': c['type'],
-            'email': user['email'],
-            'image': c['image'],
-            'content': c['content']
-        }'''
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         dic2 = {
             'event_id': c['event_id'],
             'nick_name': user['nick_name'],
@@ -92,16 +96,18 @@ def study_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day']+ "-"+ str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day']+ "-"+ str(c['end_hour']))
-        '''dic = {
-            'nick_name': user['nick_name'],
-            'time': t,
-            'type': c['type'],
-            'email': user['email'],
-            'image': c['image'],
-            'content': c['content']
-        }'''
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         dic2 = {
             'event_id': c['event_id'],
             'nick_name': user['nick_name'],
@@ -125,16 +131,18 @@ def eat_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
-        '''dic = {
-            'nick_name': user['nick_name'],
-            'time': t,
-            'type': c['type'],
-            'email': user['email'],
-            'image': c['image'],
-            'content': c['content']
-        }'''
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         dic2 = {
             'event_id': c['event_id'],
             'nick_name': user['nick_name'],
@@ -157,16 +165,18 @@ def home_event(user_id):
     list = []
     for c in content:
         user = find_student(c['starter'])
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
-        '''dic = {
-            'nick_name': user['nick_name'],
-            'time': t,
-            'type': c['type'],
-            'email': user['email'],
-            'image': c['image'],
-            'content': c['content']
-        }'''
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         dic2 = {
             'event_id': c['event_id'],
             'nick_name': user['nick_name'],
@@ -188,8 +198,18 @@ def get_my_moment(user_id):
     context= get_join_event_db(user_id)
     list = []
     for c in context:
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         user2 = find_student(c['starter'])
         dic2 = {
             'nick_name': user2['nick_name'],
@@ -212,8 +232,18 @@ def get_my_own(user_id):
     user= find_student(user_id)
     list=[]
     for c in context:
-        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'] + "-"+ str(c['start_hour']))
-        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'] + "-"+ str(c['end_hour']))
+        if (int(c['start_minute']) < 10):
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + '0' + str(c['start_minute']))
+        else:
+            t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(
+                c['start_day'] + "-" + str(c['start_hour']) + ":" + str(c['start_minute']))
+        if (int(c['end_minute']) < 10):
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + '0' + str(c['end_minute']))
+        else:
+            t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(
+                c['end_day'] + "-" + str(c['end_hour']) + ":" + str(c['end_minute']))
         '''dic = {
             'nick_name': user['nick_name'],
             'time': t,
