@@ -4,7 +4,7 @@ from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
 from logic import create_student_l, update_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
     get_my_moment, get_my_own, add_join_event, all_searched_event
-from dynamodb import search_by_key
+from dynamodb import search_by_key, send_reminder
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
 application = Flask(__name__, template_folder=tmpl_dir)
@@ -61,10 +61,17 @@ def login_user():
     # user = {'user_id': 1, 'nick_name': 'jack',
     #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
     #       'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
+    t = ""
+    print("user:", user_id)
+    content = get_my_own(int(user_id))
+    for c in content:
+        t = t + " " + c['content']
+    if t != "":
+        print("t:", t)
+        send_reminder(t, user_id)
     if user is not None:
         session['user'] = user
         return redirect('/user/')
-
     else:
         return render_template('error.html')
 

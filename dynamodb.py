@@ -26,6 +26,12 @@
 )'''
 
 import boto3
+import json
+
+comprehend = boto3.client('comprehend', aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
+                          aws_secret_access_key='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',
+                          region_name='us-east-1')
+
 sns = boto3.client(
     'sns',
     aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
@@ -45,10 +51,16 @@ import pymongo
 import datetime
 client = pymongo.MongoClient('ec2-54-172-172-28.compute-1.amazonaws.com', 27017)
 #client = pymongo.MongoClient('localhost', 27017)
-db3 = client.user2
+'''db3 = client.user2
 db4 = client.event2
 User= db3.user2
-Event= db4.event2
+Event= db4.event2'''
+
+db1 = client.user3
+db2 = client.event3
+User= db1.user3
+Event= db2.event3
+
 ID= 0
 EID= 0
 ID2=0
@@ -59,6 +71,38 @@ from elasticsearch_dsl import Search
 import certifi
 endpoint = 'https://search-ccproject3-7ihjibuej6ovkaajprvgu7whwi.us-east-1.es.amazonaws.com'
 es = Elasticsearch(hosts=[endpoint], port=443, use_ssl=True, verify_certs=True, ca_certs=certifi.where())
+
+def send_reminder(text,user_id):
+    response = json.dumps(comprehend.detect_sentiment(Text=text, LanguageCode='en'), sort_keys=True, indent=4)
+    response = json.loads(response)
+    result1 = response['Sentiment']
+    '''result2 = response['SentimentScore']
+    result_mixed = response['SentimentScore']['Mixed']
+    result_negative = response['SentimentScore']['Negative']
+    result_neutral = response['SentimentScore']['Neutral']
+    result_positive = response['SentimentScore']['Positive']'''
+    result = result1
+    if result == "NEGATIVE":
+        info=find_student(int(user_id))
+        print(info)
+        response = ses.send_email(
+            Source="maggiezhaomajoreee@gmail.com",
+            Destination={
+                'ToAddresses': [info['email']]
+            },
+            Message={
+                'Subject': {
+                    'Data': "Reminder from LionGroup",
+                    'Charset': 'UTF-8'
+                },
+                'Body': {
+                    'Text': {
+                        'Data': "Dear Customer, we find that you might under negative mood recently. Please try to cheer yourself up. You might want to try our EatTogether service for some fun. We do hope that you could enjoy your life here.",
+                        'Charset': 'UTF-8'
+                    }
+                }
+            }
+        )
 
 def search_by_key(keyword):
 
