@@ -13,7 +13,7 @@ def create_student_l(student):
     user_id= create_student(student)
     return find_student(user_id)
 
-def update_student_l(user_id, student):
+def update_student_l(user_id,student):
     #student['since'] = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     m=find_student(user_id)
     user_id= update_student(m,student)

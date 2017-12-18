@@ -74,7 +74,8 @@ def update_st():
     args = ["nick_name", "avatar", "email", "password",
             "introduction"]
     user = args2dict(request, args)
-    update_user = update_student_l(user)
+    user_id=session['user']['user_id']
+    update_user = update_student_l(user_id,user)
     update_user['_id'] = str(update_user['_id'])
     session['user'] = update_user
 
