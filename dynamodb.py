@@ -30,12 +30,14 @@ sns = boto3.client(
     'sns',
     aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
     aws_secret_access_key='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',
+    region_name='us-east-1',
     # aws_session_token=SESSION_TOKEN,
 )
 ses = boto3.client(
     'ses',
     aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
     aws_secret_access_key='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',
+    region_name='us-east-1',
     # aws_session_token=SESSION_TOKEN,
 )
 
@@ -52,6 +54,20 @@ EID= 0
 ID2=0
 EID2=0
 
+from elasticsearch import Elasticsearch
+from elasticsearch_dsl import Search
+import certifi
+endpoint = 'https://search-ccproject3-7ihjibuej6ovkaajprvgu7whwi.us-east-1.es.amazonaws.com'
+es = Elasticsearch(hosts=[endpoint], port=443, use_ssl=True, verify_certs=True, ca_certs=certifi.where())
+
+def search_by_key(keyword):
+
+    response = es.search(index='ccproject3', q=keyword)
+    m = response['hits']['hits']
+    result = []
+    for i in m:
+        result.append(i['_source'])
+    return result
 
 def create_student(info):
     #global ID
@@ -133,6 +149,25 @@ def create_event_db(info, user_id):
         'joined_flag':False
     }
     Event.insert(dic)
+
+    m = {}
+    m['start_month'] = dic['start_month']
+    m['start_year'] = dic['start_year']
+    m['event_id'] = dic['event_id']
+    m['end_year'] = dic['end_year']
+    m['image'] = dic['end_year']
+    m['start_hour'] = dic['start_hour']
+    m['end_hour'] = dic['end_hour']
+    m['start_day'] = dic['start_day']
+    m['content'] = dic['content']
+    m['end_month'] = dic['end_month']
+    m['end_day'] = dic['end_day']
+    m['time_limit_flag'] = dic['time_limit_flag']
+    m['type'] = dic['type']
+    m['starter'] = dic['starter']
+    #m1 = json.dumps(doc)
+    #m2 = json.loads(m1)
+    es.index(index='ccproject3', doc_type='test', id=m['event_id'], body=m)
     return dic, EID2
 
 
@@ -152,6 +187,24 @@ def get_event_from_db():
             c['time_limit_flag'] = True
     content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
     return content
+
+def get_event_from_db_search(event_id):
+    d = datetime.datetime.now()
+    return_content=[]
+    for c in Event.find():
+        #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+            c['time_limit_flag'] = True
+    content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
+    #print('content:',content)
+    #print('content length:',len(content))
+
+    for c in content:
+        for i in event_id:
+            if c['event_id']==i:
+                return_content.append(c)
+
+    return return_content
 
 def all_study_event():
     d = datetime.datetime.now()

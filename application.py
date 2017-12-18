@@ -3,7 +3,8 @@ import os
 from flask import Flask, request, render_template, session, redirect
 from flask_cors import CORS
 from logic import create_student_l, update_student_l, login, all_alive_event, study_event, eat_event, home_event, create_event, \
-    get_my_moment, get_my_own, add_join_event
+    get_my_moment, get_my_own, add_join_event, all_searched_event
+from dynamodb import search_by_key
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'template')
 application = Flask(__name__, template_folder=tmpl_dir)
@@ -94,6 +95,20 @@ def get_all_event():
     #            'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
     #            'content': 'Eat nearby!'}
     #           ]
+    return render_template('discover.html', events=context)
+
+
+@application.route('/discover/search/', methods=['POST'])
+def search_event():
+    key_word = request.form['key_word']
+    pre_context=search_by_key(key_word)
+    print("pre context:",pre_context)
+    user_id=session['user']['user_id']
+    event_id=[]
+    for i in pre_context:
+        event_id.append(i['event_id'])
+    print("event_id:",event_id)
+    context = all_searched_event(user_id,event_id)
     return render_template('discover.html', events=context)
 
 

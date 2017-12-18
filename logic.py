@@ -1,5 +1,5 @@
 import datetime
-from dynamodb import create_student, update_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event, add_join_event_db, get_join_event_db
+from dynamodb import get_event_from_db_search, create_student, update_student, find_student, find_name_student, get_event_from_db, all_study_event, all_eat_event, all_home_event, create_event_db, find_my_moment, get_all_my_event, add_join_event_db, get_join_event_db
 
 def login(user_id, password):
     user = find_student(int(user_id))
@@ -18,6 +18,40 @@ def update_student_l(user_id, student):
     m=find_student(user_id)
     user_id= update_student(m,student)
     return find_student(user_id)
+
+def all_searched_event(user_id,event_id):
+    context = get_event_from_db_search(event_id)
+    print("context:",context)
+    print("context length:",len(context))
+    content = []
+    for c in context:
+        if (c['starter'] != user_id):
+            content.append(c)
+    list = []
+    for c in content:
+        user = find_student(c['starter'])
+        t = str(c['start_year']) + "-" + str(c['start_month']) + "-" + str(c['start_day'])
+        t2 = str(c['end_year']) + "-" + str(c['end_month']) + "-" + str(c['end_day'])
+        '''dic = {
+            'nick_name': user['nick_name'],
+            'time': t,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
+        }'''
+        dic2 = {
+            'event_id': c['event_id'],
+            'nick_name': user['nick_name'],
+            'starttime': t,
+            'endtime': t2,
+            'type': c['type'],
+            'email': user['email'],
+            'image': c['image'],
+            'content': c['content']
+        }
+        list.append(dic2)
+    return list
 
 def all_alive_event(user_id):
     context= get_event_from_db()
