@@ -194,10 +194,18 @@ def event_create():
 
     #t = str(d.year) + "-" + str(d.month) + "-" + str(d.day)
 
-    t1 = str(trend['startyear']) + "-" + str(trend['startmonth']) + "-" + str(trend['startday'])
-
-    #will be added later
-    t2 = str(trend['endyear']) + "-" + str(trend['endmonth']) + "-" + str(trend['endday'])
+    if (int(trend['startminute']) < 10):
+        t1 = str(trend['startyear']) + "-" + str(trend['startmonth']) + "-" + str(
+            trend['startday'] + "-" + str(trend['starthour']) + ":" + '0' + str(trend['startminute']))
+    else:
+        t1 = str(trend['startyear']) + "-" + str(trend['startmonth']) + "-" + str(
+            trend['startday'] + "-" + str(trend['starthour']) + ":" + str(trend['startminute']))
+    if (int(trend['endminute']) < 10):
+        t2 = str(trend['endyear']) + "-" + str(trend['endmonth']) + "-" + str(
+            trend['endday'] + "-" + str(trend['endhour']) + ":" + '0' + str(trend['endminute']))
+    else:
+        t2 = str(trend['endyear']) + "-" + str(trend['endmonth']) + "-" + str(
+            trend['endday'] + "-" + str(trend['endhour']) + ":" + str(trend['endminute']))
 
     #will be added later
     dic3 = {
