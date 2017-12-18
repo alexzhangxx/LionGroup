@@ -21,8 +21,6 @@ def update_student_l(user_id,student):
 
 def all_searched_event(user_id,event_id):
     context = get_event_from_db_search(event_id)
-    print("context:",context)
-    print("context length:",len(context))
     content = []
     for c in context:
         if (c['starter'] != user_id):

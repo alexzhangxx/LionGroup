@@ -84,7 +84,6 @@ def send_reminder(text,user_id):
     result = result1
     if result == "NEGATIVE":
         info=find_student(int(user_id))
-        print(info)
         response = ses.send_email(
             Source="maggiezhaomajoreee@gmail.com",
             Destination={
@@ -240,8 +239,6 @@ def get_event_from_db_search(event_id):
         if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
             c['time_limit_flag'] = True
     content= Event.find({'person_limit_flag': False, 'time_limit_flag': False})
-    #print('content:',content)
-    #print('content length:',len(content))
 
     for c in content:
         for i in event_id:

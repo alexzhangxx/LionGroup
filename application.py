@@ -62,12 +62,10 @@ def login_user():
     #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
     #       'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
     t = ""
-    print("user:", user_id)
     content = get_my_own(int(user_id))
     for c in content:
         t = t + " " + c['content']
     if t != "":
-        print("t:", t)
         send_reminder(t, user_id)
     if user is not None:
         session['user'] = user
@@ -110,12 +108,10 @@ def get_all_event():
 def search_event():
     key_word = request.form['key_word']
     pre_context=search_by_key(key_word)
-    print("pre context:",pre_context)
     user_id=session['user']['user_id']
     event_id=[]
     for i in pre_context:
         event_id.append(i['event_id'])
-    print("event_id:",event_id)
     context = all_searched_event(user_id,event_id)
     return render_template('discover.html', events=context)
 
