@@ -170,6 +170,12 @@ def create_event_db(info, user_id):
     #EID = EID + 1
     EID2 = Event.count()+1
     d= datetime.datetime.now()
+    if (int(info['endyear']) * 100000000 + int(info['endmonth']) * 1000000 + int(info['endday']) * 10000 + int(
+            info['endhour']) * 100 + int(
+        info['endminute']) < int(info['startyear']) * 100000000 + int(info['startmonth']) * 1000000 + int(info['startday']) * 10000 + int(info['starthour']) * 100 + int(info['startminute'])):
+        EID2=-1
+        dic={}
+        return dic, EID2
     dic = {
         'event_id': EID2,
         #'event_id':info['event_id'],

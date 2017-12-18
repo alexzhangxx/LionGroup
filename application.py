@@ -47,7 +47,6 @@ def register_user():
 def user_home_page():
     if session['user'] is not None:
         return render_template('user.html')
-
     else:
         return render_template('error.html')
 
@@ -57,10 +56,9 @@ def login_user():
     user_id = request.form['user_id']
     password = request.form['password']
     user = login(user_id, password)
+    if user is None:
+        return render_template('error.html')
     user['_id'] = str(user['_id'])
-    # user = {'user_id': 1, 'nick_name': 'jack',
-    #       'avatar': 'https://pbs.twimg.com/profile_images/747403736293617664/5pPvHX0G_400x400.jpg',
-    #       'email': 'russwest44@gmail.com', 'password': '123456', 'introduction': 'why'}
     t = ""
     content = get_my_own(int(user_id))
     for c in content:
@@ -70,8 +68,6 @@ def login_user():
     if user is not None:
         session['user'] = user
         return redirect('/user/')
-    else:
-        return render_template('error.html')
 
 
 @application.route('/user/update/', methods=['POST'])
@@ -186,6 +182,8 @@ def event_create():
     d = datetime.datetime.now()
     user_id = session['user']['user_id']
     dic, EID = create_event(trend, user_id)
+    if (EID==-1):
+        return render_template('error.html')
     # if session['user']['create_event'] is None:
     #    list=[]
     #    list.append(EID)
@@ -200,15 +198,6 @@ def event_create():
 
     #will be added later
     t2 = str(trend['endyear']) + "-" + str(trend['endmonth']) + "-" + str(trend['endday'])
-
-    '''dic2 = {
-        'nick_name': session['user']['nick_name'],
-        'time': t1,
-        'type': dic['type'],
-        'email': session['user']['email'],
-        'image': dic['image'],
-        'content': dic['content']
-    }'''
 
     #will be added later
     dic3 = {
