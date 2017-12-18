@@ -56,8 +56,8 @@ db4 = client.event2
 User= db3.user2
 Event= db4.event2'''
 
-db1 = client.user3
-db2 = client.event3
+db1 = client.user4
+db2 = client.event4
 User= db1.user3
 Event= db2.event3
 
@@ -181,11 +181,13 @@ def create_event_db(info, user_id):
         'start_year': info['startyear'],
         'start_month': info['startmonth'],
         'start_day': info['startday'],
-        'start_hour': info['startday'],
+        'start_hour': info['starthour'],
+        'start_minute': info['startminute'],
         'end_year': info['endyear'],
         'end_month': info['endmonth'],
         'end_day': info['endday'],
         'end_hour': info['endhour'],
+        'end_minute': info['endminute'],
         'time_limit_flag':False,
         'person_limit_flag':False,
         'follower': None,
@@ -205,6 +207,8 @@ def create_event_db(info, user_id):
     m['content'] = dic['content']
     m['end_month'] = dic['end_month']
     m['end_day'] = dic['end_day']
+    m['end_minute'] = dic['end_minute']
+    m['start_minute'] = dic['start_minute']
     m['time_limit_flag'] = dic['time_limit_flag']
     m['type'] = dic['type']
     m['starter'] = dic['starter']
@@ -226,7 +230,7 @@ def get_event_from_db():
     d = datetime.datetime.now()
     for c in Event.find():
         #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 100000000 + int(c['end_month']) * 1000000 + int(c['end_day'])* 10000+  int(c['end_hour']) * 100 + int(c['end_minute'])< d.year * 100000000 + d.month * 1000000 + d.day*10000 + d.hour*100+ d.minute):
             Event.update_one(
                 {"event_id": c['event_id']},
                 {
@@ -243,7 +247,7 @@ def get_event_from_db_search(event_id):
     return_content=[]
     for c in Event.find():
         #if(c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 100000000 + int(c['end_month']) * 1000000 + int(c['end_day'])* 10000+  int(c['end_hour']) * 100 + int(c['end_minute'])< d.year * 100000000 + d.month * 1000000 + d.day*10000 + d.hour*100+ d.minute):
             Event.update_one(
                 {"event_id": c['event_id']},
                 {
@@ -265,8 +269,7 @@ def all_study_event():
     d = datetime.datetime.now()
     for c in Event.find():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
-                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 100000000 + int(c['end_month']) * 1000000 + int(c['end_day'])* 10000+  int(c['end_hour']) * 100 + int(c['end_minute'])< d.year * 100000000 + d.month * 1000000 + d.day*10000 + d.hour*100+ d.minute):
             Event.update_one(
                 {"event_id": c['event_id']},
                 {
@@ -282,8 +285,7 @@ def all_eat_event():
     d = datetime.datetime.now()
     for c in Event.find():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
-                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 100000000 + int(c['end_month']) * 1000000 + int(c['end_day'])* 10000+  int(c['end_hour']) * 100 + int(c['end_minute'])< d.year * 100000000 + d.month * 1000000 + d.day*10000 + d.hour*100+ d.minute):
             Event.update_one(
                 {"event_id": c['event_id']},
                 {
@@ -299,8 +301,7 @@ def all_home_event():
     d = datetime.datetime.now()
     for c in Event.find():
         #if (c['end_year'] * 10000 + c['end_month'] * 100 + c['end_day'] < d.year * 10000 + d.month * 100 + d.day):
-        if (int(c['end_year']) * 10000 + int(c['end_month']) * 100 + int(
-                c['end_day']) < d.year * 10000 + d.month * 100 + d.day):
+        if (int(c['end_year']) * 100000000 + int(c['end_month']) * 1000000 + int(c['end_day'])* 10000+  int(c['end_hour']) * 100 + int(c['end_minute'])< d.year * 100000000 + d.month * 1000000 + d.day*10000 + d.hour*100+ d.minute):
             Event.update_one(
                 {"event_id": c['event_id']},
                 {
@@ -341,8 +342,9 @@ def get_join_event_db(user_id):
     user = User.find_one({"user_id": user_id})
     list= user['join_event']
     context=[]
+    if list is None:
+        return context
     for j in list:
         e=Event.find_one({"event_id":int(j)})
         context.append(e)
     return context
-

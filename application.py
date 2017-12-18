@@ -180,7 +180,8 @@ def get_my_join_event():
 
 @application.route('/event/create/', methods=['POST'])
 def event_create():
-    args = ["content", "image", "startmonth","startday","starthour","startyear","endmonth","endday","endhour","endyear","type", ]
+    args = ["content", "image", "startmonth", "startday", "starthour", "startminute", "startyear", "endmonth", "endday",
+            "endhour", "endminute", "endyear", "type", ]
     trend = args2dict(request, args)
     d = datetime.datetime.now()
     user_id = session['user']['user_id']
