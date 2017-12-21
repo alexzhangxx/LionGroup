@@ -81,7 +81,7 @@ def send_reminder(text,user_id):
     if result == "NEGATIVE":
         info=find_student(int(user_id))
         response = ses.send_email(
-            Source="maggiezhaomajoreee@gmail.com",
+            Source="",
             Destination={
                 'ToAddresses': [info['email']]
             },
@@ -129,7 +129,7 @@ def create_student(info):
 
     #subscribe to our web application
     response1 = sns.subscribe(
-        TopicArn='arn:aws:sns:us-east-1:055370712479:SignUpNoti',
+        TopicArn='',
         Protocol='email',
         Endpoint=dic['email']
     )
