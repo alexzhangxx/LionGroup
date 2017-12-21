@@ -19,11 +19,7 @@
 )'''
 
 # send notification to all subscribers
-'''response = sns.publish(
-    TopicArn='arn:aws:sns:us-east-1:055370712479:SignUpNoti',
-    Message='you have just created an event',
-    Subject='event notification',
-)'''
+
 
 import boto3
 import json
