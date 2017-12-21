@@ -28,28 +28,28 @@
 import boto3
 import json
 
-comprehend = boto3.client('comprehend', aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
-                          aws_secret_access_key='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',
-                          region_name='us-east-1')
+comprehend = boto3.client('comprehend', aws_access_key_id='',
+                          aws_secret_access_key='',
+                          region_name='')
 
 sns = boto3.client(
     'sns',
-    aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
-    aws_secret_access_key='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',
-    region_name='us-east-1',
+    aws_access_key_id='',
+    aws_secret_access_key='',
+    region_name='',
     # aws_session_token=SESSION_TOKEN,
 )
 ses = boto3.client(
-    'ses',
-    aws_access_key_id='AKIAJJYDESANU5YJLSNQ',
-    aws_secret_access_key='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',
-    region_name='us-east-1',
+    '',
+    aws_access_key_id='',
+    aws_secret_access_key='',
+    region_name='',
     # aws_session_token=SESSION_TOKEN,
 )
 
 import pymongo
 import datetime
-client = pymongo.MongoClient('ec2-54-172-172-28.compute-1.amazonaws.com', 27017)
+client = pymongo.MongoClient('', 27017)
 #client = pymongo.MongoClient('localhost', 27017)
 '''db3 = client.user2
 db4 = client.event2
@@ -69,7 +69,7 @@ EID2=0
 from elasticsearch import Elasticsearch
 from elasticsearch_dsl import Search
 import certifi
-endpoint = 'https://search-ccproject3-7ihjibuej6ovkaajprvgu7whwi.us-east-1.es.amazonaws.com'
+endpoint = ''
 es = Elasticsearch(hosts=[endpoint], port=443, use_ssl=True, verify_certs=True, ca_certs=certifi.where())
 
 def send_reminder(text,user_id):
