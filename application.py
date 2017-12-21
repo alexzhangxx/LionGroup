@@ -87,16 +87,6 @@ def update_st():
 def get_all_event():
     user_id = session['user']['user_id']
     context = all_alive_event(user_id)
-    # context = [{'event_id':1,'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
-    #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
-    #            'content': 'I would like to see coco.'},
-    #           {'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
-    #            'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
-    #            'content': 'Go home together?'},
-    #           {'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
-    #            'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
-    #            'content': 'Eat nearby!'}
-    #           ]
     return render_template('discover.html', events=context)
 
 
@@ -124,9 +114,6 @@ def join_event():
 def get_study_event():
     user_id = session['user']['user_id']
     context = study_event(user_id)
-    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
-    #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
-    #            'content': 'I would like to see coco.'}]
     return render_template('discover.html', events=context)
 
 
@@ -134,9 +121,6 @@ def get_study_event():
 def get_eat_event():
     user_id = session['user']['user_id']
     context = eat_event(user_id)
-    # context = [{'nick_name': 'Yang', 'time': '2017-12-1', 'type': 'eat', 'email': '464753462@qq.com',
-    #            'image': 'https://img.huffingtonpost.com/asset/585be1aa1600002400bdf2a6.jpeg?ops=scalefit_970_noupscale',
-    #            'content': 'Eat nearby!'}]
     return render_template('discover.html', events=context)
 
 
@@ -144,9 +128,6 @@ def get_eat_event():
 def get_home_event():
     user_id = session['user']['user_id']
     context = home_event(user_id)
-    # context = [{'nick_name': 'Song', 'time': '2017-12-21', 'type': 'home', 'email': '53463462@qq.com',
-    #            'image': 'http://schillyconstructioninc.com/wp-content/uploads/2017/08/home.jpg',
-    #            'content': 'Go home together?'}]
     return render_template('discover.html', events=context)
 
 
@@ -154,12 +135,6 @@ def get_home_event():
 def get_my_own_event():
     user_id = session['user']['user_id']
     context = get_my_own(user_id)
-
-    # context = dict(moments=moments)
-    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
-    #            'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
-    #            'content': 'I would like to see coco.'}
-    #           ]
     return render_template('myevent.html', events=context)
 
 
@@ -167,10 +142,6 @@ def get_my_own_event():
 def get_my_join_event():
     user_id = session['user']['user_id']
     context = get_my_moment(user_id)
-    # context = [{'nick_name': 'Jack', 'time': '2017-12-20', 'type': 'study', 'email': '1253263462@qq.com',
-    #             'image': 'https://i.ytimg.com/vi/zNCz4mQzfEI/maxresdefault.jpg',
-    #             'content': 'I would like to see coco.'}
-    #            ]
     return render_template('myevent.html', events=context)
 
 
@@ -184,15 +155,7 @@ def event_create():
     dic, EID = create_event(trend, user_id)
     if (EID==-1):
         return render_template('error.html')
-    # if session['user']['create_event'] is None:
-    #    list=[]
-    #    list.append(EID)
-    #    session['user']['create_event']= list
-    # else:
-    #    session['user']['create_event'].append(EID)
-    # create_trend_l(trend)
 
-    #t = str(d.year) + "-" + str(d.month) + "-" + str(d.day)
 
     if (int(trend['startminute']) < 10):
         t1 = str(trend['startyear']) + "-" + str(trend['startmonth']) + "-" + str(
