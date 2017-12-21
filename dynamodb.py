@@ -1,8 +1,8 @@
 # send "one to one" notification to certain subscriber
 '''response = ses.send_email(
-    Source="maggiezhaomajoreee@gmail.com",
+    Source="",
     Destination={
-        'ToAddresses': ["rz2390@columbia.edu"]
+        'ToAddresses': [""]
     },
     Message={
         'Subject': {
